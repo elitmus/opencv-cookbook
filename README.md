@@ -1,7 +1,13 @@
 Description
 ===========
  
-chef cookbook to install OpenCV from source.
+Chef cookbook to install OpenCV from source.
+
+The OpenCV PPA is lagging behind and is incompatible with ruby-opencv gem. Hence I wrote this cookbook so that we can install OpenCV using source. After this
+
+      gem install ruby-opencv -v '0.0.10'
+
+will run smoothly
  
 Requirements
 ============
@@ -9,6 +15,8 @@ Requirements
 ## Platform:
  
 * Ubuntu
+
+Tested on Ubuntu 12.04 LTS. Can be extended to other platforms but my current instest is Ubuntu.
  
 ## Coobooks:
  
@@ -31,12 +39,12 @@ Usage
 =====
  
 Include `recipe[opencv]` on systems where you want to install opencv.
-Make sure you have set the correct version number for node.default['opencv']['version'] in the attributes file.
+Make sure you have set the correct version number for `node.default['opencv']['version']` in the attributes file.
  
 License and Author
 ==================
  
-Author:: Shireesh Jayashetty <shireesh@elitmus.com>
+Author:: Shireesh Jayashetty
  
 Copyright:: 2013, eLitmus Evaluation Private Limited, Bangalore, India.
  
