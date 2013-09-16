@@ -19,9 +19,11 @@
 #
 
 include_recipe "build-essential"
+package "cmake" 
 
 version = node['opencv']['version']
-install_path = "#{node['opencv']['prefix_dir']}/bin/python#{version.split(/(^\d+\.\d+)/)[1]}"
+installed_version = version.split(/(^\d+\.\d+\.\d+)/)[1] || version.split(/(^\d+\.\d+)/)[1]
+install_path = "#{node['opencv']['prefix_dir']}/lib/libopencv_core.so.#{installed_version}"
 
 # packages = value_for_platform_family(
 #              "rhel" => %w{},
@@ -46,11 +48,11 @@ tar -zxvf opencv-#{version}.tar.gz
 (mkdir -p opencv-#{version}/release && cd opencv-#{version}/release && cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=#{node['opencv']['prefix_dir']} .. )
 (cd opencv-#{version}/release && make && make install)
 EOF
-  # environment({
-  #     "LDFLAGS" => "-L#{node['opencv']['prefix_dir']} -L/usr/lib",
-  #     "CPPFLAGS" => "-I#{node['opencv']['prefix_dir']} -I/usr/lib",
-  #     "CXXFLAGS" => "-I#{node['opencv']['prefix_dir']} -I/usr/lib",
-  #     "CFLAGS" => "-I#{node['opencv']['prefix_dir']} -I/usr/lib"
-  # }) if platform?("ubuntu") && node['platform_version'].to_f >= 12.04
+  environment({
+      "LDFLAGS" => "-L#{node['opencv']['prefix_dir']} -L/usr/lib",
+      "CPPFLAGS" => "-I#{node['opencv']['prefix_dir']} -I/usr/lib",
+      "CXXFLAGS" => "-I#{node['opencv']['prefix_dir']} -I/usr/lib",
+      "CFLAGS" => "-I#{node['opencv']['prefix_dir']} -I/usr/lib"
+  }) if platform?("ubuntu") && node['platform_version'].to_f >= 12.04
   not_if { ::File.exists?(install_path) }
 end
