@@ -19,6 +19,10 @@
 #
 
 include_recipe "build-essential"
+if platform?("ubuntu")
+  include_recipe "apt"
+end
+
 package "cmake" 
 
 version = node['opencv']['version']
