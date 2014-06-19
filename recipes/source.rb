@@ -39,7 +39,7 @@ install_path = "#{node['opencv']['prefix_dir']}/lib/libopencv_core.so.#{installe
 #   package dev_pkg
 # end
 
-remote_file "#{Chef::Config[:file_cache_path]}/opencv-#{version}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/opencv-#{version}.zip" do
   source node['opencv']['url']
   # checksum node['opencv']['checksum']
   mode "0644"

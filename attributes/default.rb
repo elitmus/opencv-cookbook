@@ -34,4 +34,4 @@ end
 
 node.default['opencv']['binary'] = "#{opencv['prefix_dir']}/bin/opencv"
 
-node.default['opencv']['url'] = "http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/#{opencv['version']}/opencv-#{opencv['version']}.zip"
+node.default['opencv']['url'] = "http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/#{opencv['version']}/opencv-#{opencv['version']}.zip"
