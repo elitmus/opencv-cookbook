@@ -23,7 +23,8 @@ if platform?("ubuntu")
   include_recipe "apt"
 end
 
-package "cmake" 
+package "cmake"
+package "unzip"
 
 version = node['opencv']['version']
 installed_version = version.split(/(^\d+\.\d+\.\d+)/)[1] || version.split(/(^\d+\.\d+)/)[1]
@@ -48,7 +49,7 @@ end
 bash "build-and-install-opencv" do
   cwd Chef::Config[:file_cache_path]
   code <<-EOF
-tar -zxvf opencv-#{version}.tar.gz
+unzip opencv-#{version}.zip
 (mkdir -p opencv-#{version}/release && cd opencv-#{version}/release && cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=#{node['opencv']['prefix_dir']} .. )
 (cd opencv-#{version}/release && make && make install)
 EOF

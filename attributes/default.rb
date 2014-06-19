@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-node.default['opencv']['version'] = '2.4.6.1'
+node.default['opencv']['version'] = '2.4.9'
 node.default['opencv']['install_method'] = 'source'
 
 if opencv['install_method'] == 'package'
@@ -34,4 +34,4 @@ end
 
 node.default['opencv']['binary'] = "#{opencv['prefix_dir']}/bin/opencv"
 
-node.default['opencv']['url'] = "http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/#{opencv['version']}/opencv-#{opencv['version']}.tar.gz/download"
+node.default['opencv']['url'] = "http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/#{opencv['version']}/opencv-#{opencv['version']}.zip"
