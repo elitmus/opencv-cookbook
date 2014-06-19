@@ -10,7 +10,7 @@ provisioner:
 platforms:
   - name: ubuntu-12.04
     driver_config:
-      box: chef/centos-12.04
+      box: chef/ubuntu-12.04
       customize:
         memory: 512
         cpuexecutioncap: 50
