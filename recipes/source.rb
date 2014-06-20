@@ -19,7 +19,12 @@
 #
 
 include_recipe "build-essential"
-package "cmake" 
+if platform?("ubuntu")
+  include_recipe "apt"
+end
+
+package "cmake"
+package "unzip"
 
 version = node['opencv']['version']
 installed_version = version.split(/(^\d+\.\d+\.\d+)/)[1] || version.split(/(^\d+\.\d+)/)[1]
@@ -34,7 +39,7 @@ install_path = "#{node['opencv']['prefix_dir']}/lib/libopencv_core.so.#{installe
 #   package dev_pkg
 # end
 
-remote_file "#{Chef::Config[:file_cache_path]}/opencv-#{version}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/opencv-#{version}.zip" do
   source node['opencv']['url']
   # checksum node['opencv']['checksum']
   mode "0644"
@@ -44,7 +49,7 @@ end
 bash "build-and-install-opencv" do
   cwd Chef::Config[:file_cache_path]
   code <<-EOF
-tar -zxvf opencv-#{version}.tar.gz
+unzip opencv-#{version}.zip
 (mkdir -p opencv-#{version}/release && cd opencv-#{version}/release && cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=#{node['opencv']['prefix_dir']} .. )
 (cd opencv-#{version}/release && make && make install)
 EOF
